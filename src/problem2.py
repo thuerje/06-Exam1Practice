@@ -2,8 +2,8 @@
 PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Jess Thuer.
+"""  # DONE PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -31,7 +31,7 @@ import rosegraphics as rg
 def main():
     """ Calls the   TEST   functions in this module. """
     run_test_problem2a()
-    run_test_problem2b()
+    # run_test_problem2b()
 
 
 def run_test_problem2a():
@@ -110,6 +110,19 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+
+    arrow = rg.SimpleTurtle('arrow')
+    arrow.pen_up()
+    c1 = rectangle.corner_1
+    c2 = rectangle.corner_2
+    a_point = rg.Point(c2.x,c1.y)
+    arrow.go_to(a_point)
+    arrow.pen_down()
+    arrow.go_to()
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
