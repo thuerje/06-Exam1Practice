@@ -31,7 +31,7 @@ import rosegraphics as rg
 def main():
     """ Calls the   TEST   functions in this module. """
     run_test_problem2a()
-    # run_test_problem2b()
+    run_test_problem2b()
 
 
 def run_test_problem2a():
@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -114,15 +114,32 @@ def problem2a(circle, rectangle, window):
     circle.attach_to(window)
     rectangle.attach_to(window)
     window.render()
+    window.continue_on_mouse_click()
 
-    arrow = rg.SimpleTurtle('arrow')
-    arrow.pen_up()
-    c1 = rectangle.corner_1
-    c2 = rectangle.corner_2
-    a_point = rg.Point(c2.x,c1.y)
-    arrow.go_to(a_point)
-    arrow.pen_down()
-    arrow.go_to()
+    if rectangle.corner_2.x > rectangle.corner_1.x:
+        if rectangle.corner_2.y > rectangle.corner_1.y:
+            a_point1 = rg.Point(rectangle.corner_2.x,rectangle.corner_1.y)
+            a_point2 = rg.Point(rectangle.corner_1.x,rectangle.corner_2.y)
+        else:
+            a_point1 = rg.Point(rectangle.corner_2.x,rectangle.corner_2.y)
+            a_point2 = rg.Point(rectangle.corner_1.x,rectangle.corner_1.y)
+    else:
+        if rectangle.corner_2.y > rectangle.corner_1.y:
+            a_point1 = rg.Point(rectangle.corner_1.x,rectangle.corner_1.y)
+            a_point2 = rg.Point(rectangle.corner_2.x,rectangle.corner_2.y)
+        else:
+            a_point1 = rg.Point(rectangle.corner_1.x,rectangle.corner_2.y)
+            a_point2 = rg.Point(rectangle.corner_2.x,rectangle.corner_1.y)
+    arrow = rg.Line(a_point1,a_point2)
+    arrow.arrow = 'last'
+    arrow.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    circle.fill_color = rectangle.outline_color
+    circle.attach_to(window)
+    window.render()
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -186,7 +203,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -194,6 +211,35 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+
+    import math
+
+    rect.attach_to(win)
+    for _ in range (n-1):
+        if rect.corner_2.x > rect.corner_1.x:
+            if rect.corner_2.y > rect.corner_1.y:
+                c1 = rg.Point(rect.corner_1.x - delta, rect.corner_1.y - delta)
+                c2 = rg.Point(rect.corner_2.x + delta, rect.corner_2.y + delta)
+                rect = rg.Rectangle(c1,c2)
+                rect.attach_to(win)
+            else:
+                c1 = rg.Point(rect.corner_1.x - delta, rect.corner_1.y + delta)
+                c2 = rg.Point(rect.corner_2.x + delta, rect.corner_2.y - delta)
+                rect = rg.Rectangle(c1,c2)
+                rect.attach_to(win)
+        else:
+            if rect.corner_1.y > rect.corner_2.y:
+                c1 = rg.Point(rect.corner_1.x + delta, rect.corner_1.y + delta)
+                c2 = rg.Point(rect.corner_2.x - delta, rect.corner_2.y - delta)
+                rect = rg.Rectangle(c1,c2)
+                rect.attach_to(win)
+            else:
+                c1 = rg.Point(rect.corner_1.x + delta, rect.corner_1.y - delta)
+                c2 = rg.Point(rect.corner_2.x - delta, rect.corner_2.y + delta)
+                rect = rg.Rectangle(c1,c2)
+                rect.attach_to(win)
+    win.render()
+
 
 
 # ----------------------------------------------------------------------
