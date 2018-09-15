@@ -233,7 +233,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE Implement and test this function.
     #          Tests have been written for you (above).
     #
     ####################################################################
